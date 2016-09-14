@@ -39,13 +39,11 @@ public class TestCamera extends AppCompatActivity {
         setContentView(R.layout.activity_test_camera);
 
         // create Intent to take a picture and return control to the calling application
-        /*
 
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
                 MY_PERMISSIONS_REQUEST_WRITE_SD);
 
-        */
         /*ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.CAMERA},
                 MY_PERMISSIONS_REQUEST_CAPTURE_IMAGE);
