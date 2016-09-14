@@ -15,6 +15,15 @@
         android:text="Set your code for every button"
         android:id="@+id/textView" />
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView"
+        android:background="@drawable/doge"
+        android:layout_below="@+id/textView"
+        android:layout_above="@+id/button"
+        android:layout_centerHorizontal="true" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,13 +61,5 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="25dp"
         android:layout_alignParentEnd="true" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:background="@drawable/doge"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
