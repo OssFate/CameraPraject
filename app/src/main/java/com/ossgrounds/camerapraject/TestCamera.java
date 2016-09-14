@@ -37,11 +37,6 @@ public class TestCamera extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_camera);
 
-        WebView web = (WebView) findViewById(R.id.webView);
-        web.setBackgroundColor(Color.TRANSPARENT); //for gif without background
-        web.loadUrl(getFilesDir() + "/res/assets/htmls/doge.gif");
-        System.out.println(getFilesDir());
-
         // create Intent to take a picture and return control to the calling application
         /*
 
