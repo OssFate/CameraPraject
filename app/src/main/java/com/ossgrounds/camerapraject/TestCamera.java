@@ -29,7 +29,8 @@ public class TestCamera extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_CAPTURE_IMAGE = 420;
 
     public void clickLul(View view){
-        System.out.println("Hello");
+        System.out.println("Hello this is doge, and this is our video");
+        setContentView(R.layout.activity_video_player);
     }
 
     @Override
