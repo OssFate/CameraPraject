@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CameraPraject</string>
+    <string name="camera_praject">Camera Praject</string>
+    <string name="reproduciendo_video">Reproduciendo Video...</string>
+    <string name="backButton"><![CDATA[<<]]></string>
+    <string name="buttonPlay"><![CDATA[>]]></string>
+    <string name="buttonPause">||</string>
+    <string name="buttonNext"><![CDATA[>>]]></string>
 </resources>
