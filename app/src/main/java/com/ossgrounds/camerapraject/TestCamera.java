@@ -2,6 +2,7 @@ package com.ossgrounds.camerapraject;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -11,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
+import android.webkit.WebView;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -25,21 +28,32 @@ public class TestCamera extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_SD = 69;
     private static final int MY_PERMISSIONS_REQUEST_CAPTURE_IMAGE = 420;
 
+    public void clickLul(View view){
+        System.out.println("Hello");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_camera);
 
+        WebView web = (WebView) findViewById(R.id.webView);
+        web.setBackgroundColor(Color.TRANSPARENT); //for gif without background
+        web.loadUrl(getFilesDir() + "/res/assets/htmls/doge.gif");
+        System.out.println(getFilesDir());
+
         // create Intent to take a picture and return control to the calling application
+        /*
 
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
                 MY_PERMISSIONS_REQUEST_WRITE_SD);
 
+        */
         /*ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.CAMERA},
                 MY_PERMISSIONS_REQUEST_CAPTURE_IMAGE);
-*/
+        */
         // start the image capture Intent
 
     }
@@ -55,8 +69,9 @@ public class TestCamera extends AppCompatActivity {
 
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
-                    fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    fileUri = getOutputMediaFileUri(MEDIA_TYPE_VIDEO); // create a file to save the image
+                    //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
                     System.out.println(fileUri.toString());
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
                     startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE); // create a file to save the image
