@@ -30,7 +30,10 @@ public class TestCamera extends AppCompatActivity {
 
     public void clickLul(View view){
         System.out.println("Hello this is doge, and this is our video");
-        setContentView(R.layout.activity_video_player);
+        //setContentView(R.layout.activity_video_player);
+        Intent lePlayButton = new Intent(this, VideoPlayerActivity.class);
+        startActivity(lePlayButton);
+
     }
 
     @Override

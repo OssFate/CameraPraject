@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/backButton"
-        android:id="@+id/button"
+        android:id="@+id/backButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -48,28 +48,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/buttonPlay"
-        android:id="@+id/button2"
+        android:id="@+id/playButton"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/button"
+        android:layout_toRightOf="@+id/backButton"
      />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/buttonPause"
-        android:id="@+id/button3"
-        android:layout_alignTop="@+id/button2"
-        android:layout_toRightOf="@+id/button2"
-        android:layout_toEndOf="@+id/button2" />
+        android:id="@+id/pauseButton"
+        android:layout_alignTop="@+id/playButton"
+        android:layout_toRightOf="@+id/playButton"
+        android:layout_toEndOf="@+id/playButton" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/buttonNext"
-        android:id="@+id/button4"
-        android:layout_alignTop="@+id/button3"
-        android:layout_toRightOf="@+id/button3"
-        android:layout_toEndOf="@+id/button3" />
+        android:id="@+id/nextButton"
+        android:layout_alignTop="@+id/pauseButton"
+        android:layout_toRightOf="@+id/pauseButton"
+        android:layout_toEndOf="@+id/pauseButton" />
 
     <SeekBar
         android:layout_width="wrap_content"
@@ -79,6 +79,6 @@
         android:layout_alignStart="@+id/textview"
         android:layout_alignRight="@+id/textview"
         android:layout_alignEnd="@+id/textview"
-        android:layout_above="@+id/button" />
+        android:layout_above="@+id/playButton" />
 
 </RelativeLayout>
