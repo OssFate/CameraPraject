@@ -6,9 +6,6 @@ import android.util.Log;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
-/**
- * Created by USER on 13/09/2016.
- */
 public class VideoPlayerActivity extends Activity {
 
     String TAG = "MyVideoPlayer";

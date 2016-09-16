@@ -1,9 +1,13 @@
 <resources>
-    <string name="app_name">CameraPraject</string>
-    <string name="camera_praject">Camera Praject</string>
-    <string name="reproduciendo_video">Reproduciendo Video...</string>
+    <string name="app_name">Proyecto</string>
+    <string name="camera_praject">Proyecto Camara</string>
+    <string name="reproduciendo_video">Reproduciendo Video &#8230;</string>
     <string name="backButton"><![CDATA[<<]]></string>
     <string name="buttonPlay"><![CDATA[>]]></string>
     <string name="buttonPause">||</string>
     <string name="buttonNext"><![CDATA[>>]]></string>
+    <string name="moduleRep">Camera Repraduction</string>
+    <string name="moduleRec">Camera Gravation</string>
+    <string name="modulePic">Camera Phototion</string>
+    <string name="mainPic">Foto de un doge</string>
 </resources>
