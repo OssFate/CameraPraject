@@ -27,8 +27,13 @@ public class MainCamera extends AppCompatActivity {
     private Uri fileUri;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_SD = 101;
 
-    public static final int MEDIA_TYPE_IMAGE = 1;
-    public static final int MEDIA_TYPE_VIDEO = 2;
+    public void clickLul(View view){
+        System.out.println("Hello this is doge, and this is our video");
+        //setContentView(R.layout.activity_video_player);
+        Intent lePlayButton = new Intent(this, VideoPlayerActivity.class);
+        startActivity(lePlayButton);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +51,8 @@ public class MainCamera extends AppCompatActivity {
                 MY_PERMISSIONS_REQUEST_WRITE_SD);
 
         */
-    }
+        // start the image capture Intent
 
-    public void clickLul(View view){
-        System.out.println("Hello this is doge, and this is our video");
-        setContentView(R.layout.activity_video_player);
     }
 
     public void cameraRec(View view){
@@ -70,7 +72,8 @@ public class MainCamera extends AppCompatActivity {
         startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE); // create a file to save the image
     }
 
-
+    public static final int MEDIA_TYPE_IMAGE = 1;
+    public static final int MEDIA_TYPE_VIDEO = 2;
 
     /** Create a file Uri for saving an image or video */
     private static Uri getOutputMediaFileUri(int type){
