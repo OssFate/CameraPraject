@@ -14,7 +14,6 @@ import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-public class VideoPlayerActivity extends Activity {
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

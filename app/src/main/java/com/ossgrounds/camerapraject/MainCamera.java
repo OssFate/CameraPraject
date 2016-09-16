@@ -3,6 +3,8 @@ package com.ossgrounds.camerapraject;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -18,6 +20,7 @@ import android.webkit.WebView;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
 
@@ -26,6 +29,11 @@ public class MainCamera extends AppCompatActivity {
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private Uri fileUri;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_SD = 101;
+
+    public static int NumVideo;
+
+    public static final int MEDIA_TYPE_IMAGE = 1;
+    public static final int MEDIA_TYPE_VIDEO = 2;
 
     public void clickLul(View view){
         System.out.println("Hello this is doge, and this is our video");
@@ -40,6 +48,7 @@ public class MainCamera extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_camera);
 
+        NumVideo = 0;
         // Request permissions for android 6
         // We are not going to use this anymore, is here cuz reasons, but main build will be focus
         // on android 5, so we gotta allow permissions on the phone itself, and code like nothing
@@ -53,6 +62,15 @@ public class MainCamera extends AppCompatActivity {
         */
         // start the image capture Intent
 
+    }
+
+    public void cameraPlay(View view){
+        Random rand = new Random();
+        Uri myUri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/CameraProject/VID_0.mp4"); // initialize Uri here
+        System.out.println(myUri.toString());
+        Intent intent = new Intent(Intent.ACTION_VIEW );
+        intent.setDataAndType(myUri, "video/*");
+        startActivity(intent);
     }
 
     public void cameraRec(View view){
@@ -72,9 +90,6 @@ public class MainCamera extends AppCompatActivity {
         startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE); // create a file to save the image
     }
 
-    public static final int MEDIA_TYPE_IMAGE = 1;
-    public static final int MEDIA_TYPE_VIDEO = 2;
-
     /** Create a file Uri for saving an image or video */
     private static Uri getOutputMediaFileUri(int type){
         return Uri.fromFile(getOutputMediaFile(type));
@@ -84,7 +99,6 @@ public class MainCamera extends AppCompatActivity {
     private static File getOutputMediaFile(int type){
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
-
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), "CameraProject");
         // This location works best if you want the created images to be shared
@@ -106,7 +120,8 @@ public class MainCamera extends AppCompatActivity {
                     "PIC_"+ timeStamp + ".jpg");
         } else if(type == MEDIA_TYPE_VIDEO) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    "VID_"+ timeStamp + ".mp4");
+                    "VID_"+ MainCamera.NumVideo + ".mp4");
+            MainCamera.NumVideo ++;
         } else {
             return null;
         }

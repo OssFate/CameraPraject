@@ -10,4 +10,5 @@
     <string name="moduleRec">Camera Gravation</string>
     <string name="modulePic">Camera Phototion</string>
     <string name="mainPic">Foto de un doge</string>
+    <string name="numVid">videos</string>
 </resources>
