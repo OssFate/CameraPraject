@@ -1,6 +1,8 @@
 package com.ossgrounds.camerapraject;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.AudioManager;
@@ -29,6 +31,8 @@ public class MainCamera extends AppCompatActivity {
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private Uri fileUri;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_SD = 101;
+    private SharedPreferences sharedPref;
+
 
     public static int NumVideo;
 
@@ -48,7 +52,17 @@ public class MainCamera extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_camera);
 
-        NumVideo = 0;
+        sharedPref = this.getSharedPreferences(getString(R.string.prefKey), Context.MODE_PRIVATE);
+        NumVideo = sharedPref.getInt(getString(R.string.numVid), R.string.defaultNumVid);
+        System.out.println(NumVideo);
+        if(NumVideo > 10000){
+            NumVideo = 0;
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt(getString(R.string.numVid), NumVideo);
+            editor.commit();
+        }
+        System.out.println(NumVideo);
+
         // Request permissions for android 6
         // We are not going to use this anymore, is here cuz reasons, but main build will be focus
         // on android 5, so we gotta allow permissions on the phone itself, and code like nothing
@@ -65,8 +79,13 @@ public class MainCamera extends AppCompatActivity {
     }
 
     public void cameraPlay(View view){
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(getString(R.string.numVid), NumVideo);
+        editor.commit();
+
         Random rand = new Random();
-        Uri myUri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/CameraProject/VID_0.mp4"); // initialize Uri here
+        Uri myUri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/CameraProject/VID_"+
+                rand.nextInt(MainCamera.NumVideo) +".mp4"); // initialize Uri here
         System.out.println(myUri.toString());
         Intent intent = new Intent(Intent.ACTION_VIEW );
         intent.setDataAndType(myUri, "video/*");
