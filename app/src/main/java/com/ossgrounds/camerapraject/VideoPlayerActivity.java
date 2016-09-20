@@ -1,199 +1,196 @@
 package com.ossgrounds.camerapraject;
 
-import android.app.Activity;
-import android.media.MediaPlayer;
-import android.os.Environment;
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.webkit.URLUtil;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.MediaController;
-import android.widget.Toast;
 import android.widget.VideoView;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
  * Created by USER on 13/09/2016.
  */
-public class VideoPlayerActivity extends AppCompatActivity {
-
-    int i = 0;
-    List<String> videoPathes = new ArrayList<String>();
+public class VideoPlayerActivity extends AppCompatActivity implements MediaController.MediaPlayerControl {
 
 
-    String TAG = "MyVideoPlayer";
-
-    private VideoView mVideoView;
-    private EditText mPath;
-    private Button mPlay;
-    private Button mPause;
-    private Button mBack;
-    private Button mNext;
-    private String current;
-
-
-
-    /*protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_message);
-
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-        TextView textView = new TextView(this);
-        textView.setTextSize(40);
-        textView.setText(message);
-
-        ViewGroup layout = (ViewGroup) findViewById(R.id.activity_display_message);
-        layout.addView(textView);
-    }*/
+    private MediaController controller;
+    private ArrayList<Video> videoList;
+    private Random randomGenerator;
+    private Uri vidUri;
+    private VideoView vidView;
+    //private ListView videoView;
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //super.onStart();
+        setContentView(R.layout.activity_video_player);
+        vidView = (VideoView)findViewById(R.id.videoView);
 
-        mVideoView = (VideoView) findViewById(R.id.MyVideoView);
-        videoPathes.add(Environment.getExternalStorageDirectory().getAbsolutePath()+"/CameraPraject/*");
+        videoList = new ArrayList<Video>();
+        randomGenerator = new Random();
+        getVideoList();
+        int index = randomGenerator.nextInt(videoList.size());
+        //get video
+        Video playVideo = videoList.get(index);
+        //get id
+        long currVideo = playVideo.getID();
+        //set uri
+        Uri trackUri = ContentUris.withAppendedId(
+                android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                currVideo);
 
-        //mVideoView.setVideoPath("http://www.ebookfrenzy.com/android_book/movie.mp4");
+        try{
+            vidUri = Uri.parse(String.valueOf(trackUri));
+            vidView.setVideoURI(vidUri);
+            setController();
+            vidView.setMediaController(controller);
 
-        MediaController mediaController = new MediaController(this);
-        mediaController.setAnchorView(mVideoView);
-        mVideoView.setMediaController(mediaController);
-
-        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener()  {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                Log.i(TAG, "Duration = " +
-                        mVideoView.getDuration());
-            }
-        });
-
-        mPlay = (Button) findViewById(R.id.playButton);
-        mPause = (Button) findViewById(R.id.pauseButton);
-        mBack = (Button) findViewById(R.id.backButton);
-        mNext = (Button) findViewById(R.id.nextButton);
-
-        mPlay.setOnClickListener(new OnClickListener() {
-            public void onClick(View view) {
-                playVideo();
-            }
-        });
-        mPause.setOnClickListener(new OnClickListener() {
-            public void onClick(View view) {
-                if (mVideoView != null) {
-                    mVideoView.pause();
-                }
-            }
-        });
-        mNext.setOnClickListener(new OnClickListener() {
-            public void onClick(View view) {
-                if (mVideoView.canSeekForward()) {
-                    mVideoView.seekTo(i);
-                }
-            }
-        });
-        mPlay.setOnClickListener(new OnClickListener() {
-            public void onClick(View view) {
-                if (mVideoView.canSeekBackward()) {
-                    //current = null;
-                    mVideoView.seekTo(i);
-                }
-            }
-        });
-
-        runOnUiThread(new Runnable(){
-            public void run() {
-                playVideo();
-
-            }
-
-        });
-
-
-        mVideoView.setVideoPath(videoPathes.get(i));
-        mVideoView.start();
-
-        mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(final MediaPlayer mp) {
-                Random random = new Random();
-                i = (i + 1) % videoPathes.size();
-                i = random.nextInt(videoPathes.size());
-
-                mVideoView.setVideoPath(videoPathes.get(i));
-                mVideoView.start();
-            }
-        });
+            vidView.start();
+        }
+        catch(Exception e){
+            Log.e("VIDEO SERVICE", "Error setting data source", e);
+        }
 
     }
 
-    private void playVideo() {
-        try {
-            final String path = mPath.getText().toString();
-            Log.v(TAG, "path: " + path);
-            if (path == null || path.length() == 0) {
-                Toast.makeText(this, "File URL/path is empty",
-                        Toast.LENGTH_LONG).show();
+    @Override
+    public void start() {
 
-            } else {
-                // If the path has not changed, just start the media player
-                if (path.equals(current) && mVideoView != null) {
-                    mVideoView.start();
-                    mVideoView.requestFocus();
-                    return;
-                }
-                current = path;
-                mVideoView.setVideoPath(getDataSource(path));
-                mVideoView.start();
-                mVideoView.requestFocus();
+    }
 
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public int getDuration() {
+        return 0;
+    }
+
+    @Override
+    public int getCurrentPosition() {
+        return 0;
+    }
+
+    @Override
+    public void seekTo(int i) {
+
+    }
+
+    @Override
+    public boolean isPlaying() {
+        return false;
+    }
+
+    @Override
+    public int getBufferPercentage() {
+        return 0;
+    }
+
+    @Override
+    public boolean canPause() {
+        return false;
+    }
+
+    @Override
+    public boolean canSeekBackward() {
+        return false;
+    }
+
+    @Override
+    public boolean canSeekForward() {
+        return false;
+    }
+
+    @Override
+    public int getAudioSessionId() {
+        return 0;
+    }
+
+    private void setController(){
+        controller = new MediaController(this);
+        controller.setPrevNextListeners(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playNext();
             }
-        } catch (Exception e) {
-            Log.e(TAG, "error: " + e.getMessage(), e);
-            if (mVideoView != null) {
-                mVideoView.stopPlayback();
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playPrev();
             }
+        });
+        controller.setMediaPlayer(this);
+        controller.setAnchorView(findViewById(R.id.videoView));
+        controller.setEnabled(true);
+    }
+
+    private void playNext() {
+        //play next
+        int index = randomGenerator.nextInt(videoList.size());
+        Video playVideo = videoList.get(index);
+        long currVideo = playVideo.getID();
+        Uri trackUri = ContentUris.withAppendedId(
+                android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                currVideo);
+
+        try{
+            vidUri = Uri.parse(String.valueOf(trackUri));
+            vidView.setVideoURI(vidUri);
+            vidView.start();
+        }
+        catch(Exception e){
+            Log.e("VIDEO SERVICE", "Error setting data source", e);
+        }
+    }
+    private void playPrev() {
+        //play prev
+        int index = randomGenerator.nextInt(videoList.size());
+        Video playVideo = videoList.get(index);
+        long currVideo = playVideo.getID();
+        Uri trackUri = ContentUris.withAppendedId(
+                android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                currVideo);
+
+        try{
+            vidUri = Uri.parse(String.valueOf(trackUri));
+            vidView.setVideoURI(vidUri);
+            vidView.start();
+        }
+        catch(Exception e){
+            Log.e("VIDEO SERVICE", "Error setting data source", e);
         }
     }
 
-    private String getDataSource(String path) throws IOException {
-        if (!URLUtil.isNetworkUrl(path)) {
-            return path;
-        } else {
-            URL url = new URL(path);
-            URLConnection cn = url.openConnection();
-            cn.connect();
-            InputStream stream = cn.getInputStream();
-            if (stream == null)
-                throw new RuntimeException("stream is null");
-            File temp = File.createTempFile("mediaplayertmp", "dat");
-            temp.deleteOnExit();
-            String tempPath = temp.getAbsolutePath();
-            FileOutputStream out = new FileOutputStream(temp);
-            byte buf[] = new byte[128];
+    public void getVideoList() {
+        //retrieve song info
+        ContentResolver videoResolver = getContentResolver();
+        //??? uri acá?
+        Uri videoUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+        Cursor videoCursor = videoResolver.query(videoUri, null, null, null, null);
+        if(videoCursor!=null && videoCursor.moveToFirst()){
+            //get columns
+            int titleColumn = videoCursor.getColumnIndex
+                    (MediaStore.Audio.Media.TITLE);
+            int idColumn = videoCursor.getColumnIndex
+                    (MediaStore.Audio.Media._ID);
+
+            //add songs to list
             do {
-                int numread = stream.read(buf);
-                if (numread <= 0)
-                    break;
-                out.write(buf, 0, numread);
-            } while (true);
-            try {
-                stream.close();
-            } catch (IOException ex) {
-                Log.e(TAG, "error: " + ex.getMessage(), ex);
-            }
-            return tempPath;
+                long thisId = videoCursor.getLong(idColumn);
+                String thisTitle = videoCursor.getString(titleColumn);
+                videoList.add(new Video(thisId, thisTitle));
+            }while (videoCursor.moveToNext());
         }
     }
 }
