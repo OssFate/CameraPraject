@@ -5,6 +5,7 @@ import android.content.ContentUris;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -26,6 +27,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements MediaContr
     private Random randomGenerator;
     private Uri vidUri;
     private VideoView vidView;
+    private View decorView;
     //private ListView videoView;
 
     @Override
@@ -33,8 +35,10 @@ public class VideoPlayerActivity extends AppCompatActivity implements MediaContr
         super.onCreate(savedInstanceState);
         //super.onStart();
         setContentView(R.layout.activity_video_player);
-        vidView = (VideoView)findViewById(R.id.videoView);
 
+        decorView = getWindow().getDecorView();
+
+        vidView = (VideoView)findViewById(R.id.videoView);
         videoList = new ArrayList<Video>();
         randomGenerator = new Random();
         getVideoList();
@@ -49,10 +53,10 @@ public class VideoPlayerActivity extends AppCompatActivity implements MediaContr
                 currVideo);
 
         try{
-            vidUri = Uri.parse(String.valueOf(trackUri));
+            vidUri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/CameraProject/VID_"+ randomGenerator.nextInt(MainCamera.NumVideo) +".mp4");
             vidView.setVideoURI(vidUri);
-            setController();
-            vidView.setMediaController(controller);
+            //setController();
+            //vidView.setMediaController(controller);
 
             vidView.start();
         }
@@ -192,5 +196,18 @@ public class VideoPlayerActivity extends AppCompatActivity implements MediaContr
                 videoList.add(new Video(thisId, thisTitle));
             }while (videoCursor.moveToNext());
         }
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
     }
 }

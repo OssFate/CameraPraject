@@ -34,6 +34,7 @@ public class MainCamera extends AppCompatActivity {
     private SharedPreferences sharedPref;
 
 
+    public static SharedPreferences.Editor editor;
     public static int NumVideo;
 
     public static final int MEDIA_TYPE_IMAGE = 1;
@@ -41,6 +42,10 @@ public class MainCamera extends AppCompatActivity {
 
     public void clickLul(View view){
         System.out.println("Hello this is doge, and this is our video");
+        System.out.println(NumVideo);
+
+        editor.putInt(getString(R.string.numVid), NumVideo);
+        editor.commit();
         //setContentView(R.layout.activity_video_player);
         Intent lePlayButton = new Intent(this, VideoPlayerActivity.class);
         startActivity(lePlayButton);
@@ -53,11 +58,11 @@ public class MainCamera extends AppCompatActivity {
         setContentView(R.layout.activity_test_camera);
 
         sharedPref = this.getSharedPreferences(getString(R.string.prefKey), Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
         NumVideo = sharedPref.getInt(getString(R.string.numVid), R.string.defaultNumVid);
         System.out.println(NumVideo);
         if(NumVideo > 10000){
             NumVideo = 0;
-            SharedPreferences.Editor editor = sharedPref.edit();
             editor.putInt(getString(R.string.numVid), NumVideo);
             editor.commit();
         }
@@ -79,7 +84,6 @@ public class MainCamera extends AppCompatActivity {
     }
 
     public void cameraPlay(View view){
-        SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(getString(R.string.numVid), NumVideo);
         editor.commit();
 
