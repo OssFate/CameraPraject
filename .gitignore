@@ -1,9 +1,9 @@
 *.iml
 .gradle
-/CameraPraject/local.properties
-/CameraPraject/.idea/workspace.xml
-/CameraPraject/.idea/libraries
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
 .DS_Store
-/CameraPraject/build
-/CameraPraject/captures
-/CameraPraject/projectFilesBackup
+/build
+/captures
+/projectFilesBackup
