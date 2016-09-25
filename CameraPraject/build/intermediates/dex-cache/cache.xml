@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\Oswald\AndroidStudioProjects\CameraPraject\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="c936c1bd42f0c018c18920c7bec619ef056b24f8">
+        <dex dex="C:\Users\Oswald\AndroidStudioProjects\CameraPraject\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-24.1.1_8d2ece19dff359e85d88e91e79df86bcdad8a5b1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Oswald\AndroidStudioProjects\CameraPraject\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="6d7d803871e3203465f71a163e7af104f807b446">
+        <dex dex="C:\Users\Oswald\AndroidStudioProjects\CameraPraject\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-24.1.1_b809f58f860966ca32d6cf2146fe5db4aa9f3bb3\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Oswald\AndroidStudioProjects\CameraPraject\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="f62e763609f65e47dc6c498760a4accf02776788">
+        <dex dex="C:\Users\Oswald\AndroidStudioProjects\CameraPraject\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.1.1_899125425b638a16228e234b9d883754189cd280\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Oswald\AndroidStudioProjects\CameraPraject\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="238992c090be1f9bf1cda745eda57826c7f35dcb">
+        <dex dex="C:\Users\Oswald\AndroidStudioProjects\CameraPraject\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_f5e5b327b6143eb6c68a5e4cc598b38cf2adf8cb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Oswald\AndroidStudioProjects\CameraPraject\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.1.1\jars\libs\internal_impl-24.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="f78c2f395cb096f9dc1dc07e729922b8fcd3c4f5">
+        <dex dex="C:\Users\Oswald\AndroidStudioProjects\CameraPraject\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.1.1_e9f52c9bf6020d30d8d2a83e5a9546e1ba24f08b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Oswald\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\24.1.1\support-annotations-24.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="3af19f153122737b372622fa6c81dd11a1c6b999">
+        <dex dex="C:\Users\Oswald\AndroidStudioProjects\CameraPraject\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-24.1.1_501f8921c6d85fff76672597a8528301e4743d3a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Oswald\AndroidStudioProjects\CameraPraject\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="1256c10604bb098490eab070d76754ac5ceab35c">
+        <dex dex="C:\Users\Oswald\AndroidStudioProjects\CameraPraject\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-24.1.1_4842eb55b6cbfed2c8ef3723dcfdaa11731cb900\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Oswald\AndroidStudioProjects\CameraPraject\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="987a4525ac570089454de01185bb5aeaae3b6855">
+        <dex dex="C:\Users\Oswald\AndroidStudioProjects\CameraPraject\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_49cef74fc657787a0503c211e24a485ec8d48a13\classes.dex" />
+    </item>
+
+</items>
