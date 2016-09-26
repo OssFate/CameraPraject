@@ -53,4 +53,13 @@
         android:id="@+id/imageRe"
         android:onClick="resetVideo" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageRe"
+        android:layout_toEndOf="@+id/imageRe"
+        android:layout_marginStart="88dp"
+        android:id="@+id/button"
+        android:background="@drawable/play2" />
+
 </RelativeLayout>

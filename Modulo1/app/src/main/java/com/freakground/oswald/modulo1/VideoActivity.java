@@ -38,7 +38,7 @@ public class VideoActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         videoView = (VideoView) findViewById(R.id.videoVideo);
-        videoView.setVideoURI(Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/VID_4.mp4"));
+        videoView.setVideoURI(Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/rocky.mp4"));
 
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
             public void onCompletion(MediaPlayer mp){
