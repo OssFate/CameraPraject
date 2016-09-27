@@ -1,22 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_welcome"
-    android:orientation="horizontal"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    tools:context="com.freakground.oswald.modulofoto.WelcomeActivity"
-    android:weightSum="1">
+    android:keepScreenOn="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.freakground.oswald.modulofoto.WelcomeActivity">
 
-    <FrameLayout
-        android:id="@+id/camera_preview"
-        android:layout_width="392dp"
-        android:layout_height="267dp" />
-    <Button
-        android:id="@+id/button_capture"
-        android:text="Capture"
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/fondo"
+        android:id="@+id/f1Fondo"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/f1reconocimiento"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/f1Reconocimiento" />
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        />
-</LinearLayout>
+        app:srcCompat="@drawable/f1toca"
+        android:id="@+id/f1Tocar" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/f1sombra"
+        android:id="@+id/f1Sombra" />
+
+    <ImageView
+        app:srcCompat="@drawable/f1frame"
+        android:id="@+id/f1Frame"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="44dp"
+        android:layout_width="@dimen/frameW"
+        android:layout_height="@dimen/frameH"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/f1comparte"
+        android:id="@+id/f1Comparte"
+        android:onClick="changeActivity" />
+
+</RelativeLayout>
