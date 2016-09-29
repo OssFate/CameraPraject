@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:keepScreenOn="true"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+    <FrameLayout
+        android:id="@+id/camera_preview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/g2">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/g2_fondo"
+            android:id="@+id/g2Fondo" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/g2_texto"
+            android:id="@+id/g2Texto"
+            android:onClick="startRecording" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/g3"
+        android:visibility="invisible">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/g3_fondo"
+            android:id="@+id/g3_fondo" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/g3_texto"
+            android:id="@+id/g3_texto" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/g3_si"
+            android:id="@+id/g3Si"
+            android:layout_marginEnd="60dp"
+            android:layout_alignTop="@+id/g3No"
+            android:layout_toStartOf="@+id/g3No"
+            android:onClick="returnInit" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/g3_no"
+            android:id="@+id/g3No"
+            android:layout_marginBottom="155dp"
+            android:layout_marginEnd="345dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="wannaRecordAgain" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/g4"
+        android:visibility="invisible">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/g4_fondo"
+            android:id="@+id/g4Fondo" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/g4_texto"
+            android:id="@+id/g4Texto" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/g3_no"
+            android:id="@+id/g4No"
+            android:layout_marginStart="55dp"
+            android:layout_alignTop="@+id/g4Si"
+            android:layout_toEndOf="@+id/g4Si"
+            android:onClick="returnInit" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/g3_si"
+            android:id="@+id/g4Si"
+            android:layout_marginStart="341dp"
+            android:layout_marginBottom="105dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:onClick="recordAgain" />
+    </RelativeLayout>
+
+</RelativeLayout>

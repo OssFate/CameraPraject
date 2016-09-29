@@ -38,7 +38,7 @@ public class VideoActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         videoView = (VideoView) findViewById(R.id.videoVideo);
-        videoView.setVideoURI(Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/rocky.mp4"));
+        videoView.setVideoURI(Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/institucional.mp4"));
 
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
             public void onCompletion(MediaPlayer mp){
@@ -47,6 +47,12 @@ public class VideoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        new ActSwitchAnimTool(this)
+                .receiveIntent(getIntent())
+                .setAnimType(ActSwitchAnimTool.MODE_SHRINK)
+                .target(findViewById(R.id.imagePause2))
+                .build();
     }
 
     @Override
@@ -54,16 +60,6 @@ public class VideoActivity extends AppCompatActivity {
         super.onStart();
 
         System.out.println(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/rocky.mp4");
-
-        try {
-            new ActSwitchAnimTool(this)
-                    .receiveIntent(getIntent())
-                    .setAnimType(ActSwitchAnimTool.MODE_SHRINK)
-                    .target(findViewById(R.id.imagePause2))
-                    .build();
-        }catch (Exception e){
-            Log.d("TRANSITION", e.getMessage());
-        }
 
         videoView.start();
     }
@@ -94,6 +90,7 @@ public class VideoActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
         startActivity(intent);
     }
 

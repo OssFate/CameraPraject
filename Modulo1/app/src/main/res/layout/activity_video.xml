@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_video"
+    android:keepScreenOn="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.freakground.oswald.modulo1.VideoActivity">
@@ -23,43 +24,33 @@
     <ImageView
         app:srcCompat="@drawable/pause2"
         android:id="@+id/imagePause2"
-        android:layout_marginStart="316dp"
+        android:layout_marginStart="333dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="14dp"
-        android:layout_width="61dp"
-        android:layout_height="63dp"
+        android:layout_marginBottom="6dp"
         android:onClick="playNPause"
-        android:longClickable="true" />
+        android:longClickable="true"
+        android:layout_width="@dimen/buttonW"
+        android:layout_height="@dimen/buttonH" />
 
     <ImageView
-        android:layout_width="61dp"
-        android:layout_height="63dp"
+        android:layout_width="@dimen/buttonW"
+        android:layout_height="@dimen/buttonH"
         app:srcCompat="@drawable/play2"
         android:layout_alignTop="@+id/imagePause2"
         android:layout_alignStart="@+id/imagePause2"
         android:id="@+id/imagePlay"
-        android:layout_marginBottom="14dp"
         android:visibility="invisible"
         android:onClick="playNPause" />
 
     <ImageView
-        android:layout_width="61dp"
-        android:layout_height="63dp"
+        android:layout_width="@dimen/buttonW"
+        android:layout_height="@dimen/buttonH"
         app:srcCompat="@drawable/reiniciar2"
         android:layout_marginStart="210dp"
         android:layout_alignBottom="@+id/imagePause2"
         android:layout_toEndOf="@+id/imagePause2"
         android:id="@+id/imageRe"
         android:onClick="resetVideo" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imageRe"
-        android:layout_toEndOf="@+id/imageRe"
-        android:layout_marginStart="88dp"
-        android:id="@+id/button"
-        android:background="@drawable/play2" />
 
 </RelativeLayout>

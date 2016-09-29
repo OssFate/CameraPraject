@@ -1,16 +1,16 @@
 package com.freakground.oswald.modulofoto;
 
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
-import android.hardware.Camera.PictureCallback;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 
 import java.io.File;
@@ -19,8 +19,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class PhotoActivity extends AppCompatActivity {
+
+    private View mDecorView;
 
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
@@ -28,7 +31,8 @@ public class PhotoActivity extends AppCompatActivity {
     private Camera mCamera;
     private CameraPreview mPreview;
 
-    private PictureCallback mPicture = new PictureCallback() {
+
+    private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
 
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
@@ -54,27 +58,60 @@ public class PhotoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photo);
+        setContentView(R.layout.activity_rest);
+
+        mDecorView = getWindow().getDecorView();
+
+        mDecorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         // Create an instance of Camera
         mCamera = getCameraInstance();
+        mCamera.setDisplayOrientation(180);
 
+        /*
+        mCamera.getParameters().setPictureSize(1280, 720);
+        for (Camera.Size l: mCamera.getParameters().getSupportedPictureSizes()
+             ) {
+            Log.d("MyError", "W: " + l.width + " H: " + l.height);
+        }
+        Log.d("MyError", "Size W: " + mCamera.getParameters().getPictureSize().width + " Size H: " + mCamera.getParameters().getPictureSize().height);
+        */
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Log.d("NULL PROBLEM!", "is camera null? " + (mCamera == null));
         // Create our Preview view and set it as the content of our activity.
         mPreview = new CameraPreview(this, mCamera);
-        FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
+        FrameLayout preview = (FrameLayout) findViewById(R.id.camera);
+        Log.d("NULL PROBLEM!", "is preview null? " + findViewById(R.id.camera));
         preview.addView(mPreview);
 
+        /*
         Button captureButton = (Button) findViewById(R.id.button_capture);
         captureButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //DngCreator dng =  new DngCreator(cc,
                         // get an image from the camera
+
                         mCamera.takePicture(null, null, mPicture);
                     }
                 }
         );
+        */
     }
+
+
 
     private boolean checkCameraHardware(Context context) {
         if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
@@ -86,16 +123,24 @@ public class PhotoActivity extends AppCompatActivity {
         }
     }
 
+
     public static Camera getCameraInstance(){
         Camera c = null;
         try {
             c = Camera.open(); // attempt to get a Camera instance
+
+            Camera.Parameters params = c.getParameters();
+            List<Camera.Size> size = params.getSupportedPictureSizes();
+            Camera.Size s = size.get(1);
+            params.setPictureSize(s.width, s.height);
+            c.setParameters(params);
         }
         catch (Exception e){
             // Camera is not available (in use or does not exist)
         }
         return c; // returns null if camera is unavailable
     }
+
 
     /** Create a file Uri for saving an image or video */
     private static Uri getOutputMediaFileUri(int type){
@@ -134,5 +179,19 @@ public class PhotoActivity extends AppCompatActivity {
         }
 
         return mediaFile;
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            mDecorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
     }
 }

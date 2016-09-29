@@ -3,42 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_welcome"
+    android:keepScreenOn="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.freakground.oswald.modulo1.WelcomeActivity">
 
-    <VideoView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/videoWelcome"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
-
-    <RelativeLayout
-        android:id="@+id/transparentOverlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/red_transparent" >
-
-    </RelativeLayout>
+        app:srcCompat="@drawable/r1_fondo"
+        android:id="@+id/r1Fondo" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/reconocimiento"
-        android:id="@+id/imageReconocimiento"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        app:srcCompat="@drawable/r1_reconocimiento"
+        android:id="@+id/r1Reconocimiento" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/iniciar"
-        android:id="@+id/imageIniciar"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:cropToPadding="false"
-        android:visibility="visible" />
+        app:srcCompat="@drawable/r1_iniciar"
+        android:id="@+id/imageView4" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/r1_logo"
+        android:id="@+id/r1Logo" />
 
     <pl.bclogic.pulsator4droid.library.PulsatorLayout
         android:id="@+id/pulsator"
