@@ -1,43 +1,51 @@
 package com.freakground.oswald.modulovideo;
 
-import android.content.Context;
+import android.app.ActivityManager;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.graphics.drawable.AnimationDrawable;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class WelcomeActivity extends AppCompatActivity {
 
+    // States
+    private final Handler mHandler = new Handler();
+    private final int mDelayRecord = 20000;
+    private final int mIdleTime = 30000;
+
+    private boolean oneTime = false;
+    private boolean isRecording = false;
+    public static boolean didSave;
+
+    // Views
+    private AnimationDrawable mConteo;
     private View mDecorView;
-    private final Handler handler = new Handler();
-    private final int mDelay = 20000;
 
-
-    public static final int MEDIA_TYPE_IMAGE = 1;
-    public static final int MEDIA_TYPE_VIDEO = 2;
+    // Save
     public final String TAG = "MODULOVIDEO";
+    private File mFile;
 
+    // Camera
     private Camera mCamera;
     private MediaRecorder mMediaRecorder;
     private CameraPreview mPreview;
-    private Button captureButton;
-
-    private boolean isRecording = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,57 +64,89 @@ public class WelcomeActivity extends AppCompatActivity {
 
         // Create an instance of Camera
         mCamera = getCameraInstance();
-        mCamera.setDisplayOrientation(180);
-
-        /*
-        for (Camera.Size l: mCamera.getParameters().getSupportedVideoSizes()
-                ) {
-            Log.d("MyError", "W: " + l.width + " H: " + l.height);
-        }
-        Log.d("MyError", "Size W: " + mCamera.getParameters().getPictureSize().width + " Size H: " + mCamera.getParameters().getPictureSize().height);
-        */
+        //mCamera.setDisplayOrientation(180);
 
         // Create our Preview view and set it as the content of our activity.
-        mPreview = new CameraPreview(this, mCamera);
+        mPreview = new CameraPreview(WelcomeActivity.this, mCamera);
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mPreview);
+    }
 
-        // Add a listener to the Capture button
-        /*
-        captureButton = (Button) findViewById(R.id.button_capture);
-        captureButton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (isRecording) {
-                            // stop recording and release camera
-                            mMediaRecorder.stop();  // stop the recording
-                            releaseMediaRecorder(); // release the MediaRecorder object
-                            mCamera.lock();         // take camera access back from MediaRecorder
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-                            // inform the user that recording has stopped
-                            captureButton.setText("Capture");
-                            isRecording = false;
-                        } else {
-                            // initialize video camera
-                            if (prepareVideoRecorder()) {
-                                // Camera is available and unlocked, MediaRecorder is prepared,
-                                // now you can start recording
-                                mMediaRecorder.start();
+        didSave = false;
 
-                                // inform the user that recording has started
-                                captureButton.setText("Stop");
-                                isRecording = true;
-                            } else {
-                                // prepare didn't work, release the camera
-                                releaseMediaRecorder();
-                                // inform user
-                            }
-                        }
-                    }
-                }
-        );
-        */
+        Log.d("LAL", "does this run again?");
+
+        loadConteo();
+        ImageView iv = (ImageView) findViewById(R.id.conteo);
+        mConteo = (AnimationDrawable) iv.getBackground();
+
+        mFile = getOutputMediaFile();
+
+        mHandler.postDelayed(idleApp, mIdleTime);
+
+        loadG3();
+        loadG4();
+    }
+
+    // Did you like it
+    private void loadG3(){
+        findViewById(R.id.g3_fondo).setBackground(getDrawable(R.drawable.g3_fondo));
+        findViewById(R.id.g3_texto).setBackground(getDrawable(R.drawable.g3_texto));
+        findViewById(R.id.g3No).setBackground(getDrawable(R.drawable.g3_no));
+        findViewById(R.id.g3Si).setBackground(getDrawable(R.drawable.g3_si));
+    }
+
+    // Wanna record again?
+    private void loadG4(){
+        findViewById(R.id.g4Fondo).setBackground(getDrawable(R.drawable.g4_fondo));
+        findViewById(R.id.g4Texto).setBackground(getDrawable(R.drawable.g4_texto));
+        findViewById(R.id.g4Si).setBackground(getDrawable(R.drawable.g3_si));
+        findViewById(R.id.g4No).setBackground(getDrawable(R.drawable.g3_no));
+    }
+
+    private void loadConteo () {
+        findViewById(R.id.conteo).setBackground(getDrawable(R.drawable.conteo20));
+        findViewById(R.id.touchToEnd).setBackground(getDrawable(R.drawable.terminargrabacion));
+    }
+
+    ////////////////***** RUNNABLES  **********//////////////////////////////
+
+    private Runnable endRecord = new Runnable() {
+        @Override
+        public void run() {
+            if(isRecording) {
+                findViewById(R.id.recording).setVisibility(View.GONE);
+                mConteo.stop();
+                mConteo.selectDrawable(0);
+
+                mMediaRecorder.stop();  // stop the recording
+                releaseMediaRecorder(); // release the MediaRecorder object
+                mCamera.lock();
+
+                isRecording = false;
+
+                mHandler.removeCallbacks(idleApp);
+                mHandler.postDelayed(idleApp, mIdleTime);
+                findViewById(R.id.g3).setVisibility(View.VISIBLE);
+            }
+        }
+    };
+
+    private Runnable idleApp = new Runnable() {
+        @Override
+        public void run() {
+            mFile.delete();
+            returnInit(null);
+        }
+    };
+
+    public void fastRecord(View view) {
+        mHandler.removeCallbacks(endRecord);
+        mHandler.postDelayed(endRecord, 10);
     }
 
     public void startRecording(View view) {
@@ -116,18 +156,14 @@ public class WelcomeActivity extends AppCompatActivity {
             findViewById(R.id.g2).setVisibility(View.INVISIBLE);
             mMediaRecorder.start();
 
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
+            findViewById(R.id.recording).setVisibility(View.VISIBLE);
+            mConteo.start();
 
-                    mMediaRecorder.stop();  // stop the recording
-                    releaseMediaRecorder(); // release the MediaRecorder object
-                    mCamera.lock();
+            isRecording = true;
 
-                    findViewById(R.id.g3).setVisibility(View.VISIBLE);
-                }
-            }, mDelay);
-
+            mHandler.removeCallbacks(idleApp);
+            mHandler.postDelayed(idleApp, mIdleTime);
+            mHandler.postDelayed(endRecord, mDelayRecord);
         } else {
             // prepare didn't work, release the camera
             releaseMediaRecorder();
@@ -138,17 +174,46 @@ public class WelcomeActivity extends AppCompatActivity {
     public void recordAgain(View view) {
         findViewById(R.id.g4).setVisibility(View.INVISIBLE);
         findViewById(R.id.g2).setVisibility(View.VISIBLE);
+
+        mHandler.removeCallbacks(idleApp);
+        mHandler.postDelayed(idleApp, mIdleTime);
     }
 
-    public void wannaRecordAgain(View view) {
-        findViewById(R.id.g3).setVisibility(View.INVISIBLE);
-        findViewById(R.id.g4).setVisibility(View.VISIBLE);
+    public void didntLikeIt(View view) {
+        if(!oneTime) {
+            oneTime = !oneTime;
+            findViewById(R.id.g3).setVisibility(View.INVISIBLE);
+            findViewById(R.id.g4).setVisibility(View.VISIBLE);
+            mHandler.removeCallbacks(idleApp);
+            mHandler.postDelayed(idleApp, mIdleTime);
+        } else {
+            leaveAppNotSave(view);
+        }
     }
 
     public void returnInit(View view) {
+        finish();
         Intent intent = new Intent(WelcomeActivity.this, IntroActivity.class);
         startActivity(intent);
     }
+
+    public void leaveAppSave(View view){
+        didSave = true;
+        mHandler.removeCallbacksAndMessages(null);
+        finish();
+        Intent intent = new Intent(WelcomeActivity.this, EndActivity.class);
+        startActivity(intent);
+    }
+
+    public void leaveAppNotSave(View view){
+        mFile.delete();
+        mHandler.removeCallbacksAndMessages(null);
+        finish();
+        Intent intent = new Intent(WelcomeActivity.this, EndActivity.class);
+        startActivity(intent);
+    }
+
+    ///////////////////// UN TOUCHABLE  //////////////////////////////////////////////////////
 
     private boolean prepareVideoRecorder(){
 
@@ -164,10 +229,10 @@ public class WelcomeActivity extends AppCompatActivity {
         mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
 
         // Step 3: Set a CamcorderProfile (requires API Level 8 or higher)
-        mMediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH));
+        mMediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_480P));
 
         // Step 4: Set output file
-        mMediaRecorder.setOutputFile(getOutputMediaFile(MEDIA_TYPE_VIDEO).toString());
+        mMediaRecorder.setOutputFile(mFile.toString());
 
         // Step 5: Set the preview output
         mMediaRecorder.setPreviewDisplay(mPreview.getHolder().getSurface());
@@ -212,22 +277,25 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }
 
-    /** Check if this device has a camera */
-    private boolean checkCameraHardware(Context context) {
-        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
-            // this device has a camera
-            return true;
-        } else {
-            // no camera on this device
-            return false;
-        }
-    }
-
     /** A safe way to get an instance of the Camera object. */
     public static Camera getCameraInstance(){
         Camera c = null;
         try {
             c = Camera.open(); // attempt to get a Camera instance
+
+            Camera.Parameters params = c.getParameters();
+            List<Camera.Size> size = params.getSupportedPreviewSizes();
+            Camera.Size s = size.get(6);
+            params.setPreviewSize(s.width, s.height);
+            ///*
+            Log.d("Camera", params.getPreviewSize().width + " , " + params.getPreviewSize().height);
+            /*
+            for (Camera.Size l: params.getSupportedPreviewSizes()
+                    ) {
+                Log.d("MyError", "W: " + l.width + " H: " + l.height);
+            }*/
+            params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            c.setParameters(params);
         }
         catch (Exception e){
             // Camera is not available (in use or does not exist)
@@ -235,43 +303,21 @@ public class WelcomeActivity extends AppCompatActivity {
         return c; // returns null if camera is unavailable
     }
 
-    /** Create a file Uri for saving an image or video */
-    private static Uri getOutputMediaFileUri(int type){
-        return Uri.fromFile(getOutputMediaFile(type));
-    }
-
     /** Create a File for saving an image or video */
-    private static File getOutputMediaFile(int type){
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
-
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "MyCameraApp");
-        // This location works best if you want the created images to be shared
-        // between applications and persist after your app has been uninstalled.
-
-        // Create the storage directory if it does not exist
+    private File getOutputMediaFile(){
+        String sdcard1 = "/storage/sdcard1";
+        File mediaStorageDir = new File(sdcard1, getString(R.string.pathVideosGuardar));
         if (! mediaStorageDir.exists()){
             if (! mediaStorageDir.mkdirs()){
                 Log.d("MyCameraApp", "failed to create directory");
                 return null;
             }
         }
-
         // Create a media file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         File mediaFile;
-        if (type == MEDIA_TYPE_IMAGE){
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    "IMG_"+ timeStamp + ".jpg");
-        } else if(type == MEDIA_TYPE_VIDEO) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator +
                     "VID_"+ timeStamp + ".mp4");
-        } else {
-
-            return null;
-        }
-
         return mediaFile;
     }
 

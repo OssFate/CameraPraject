@@ -1,30 +1,30 @@
 package com.freakground.oswald.modulovideo;
 
+import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.net.Uri;
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.VideoView;
 
 import java.io.File;
-import java.util.Random;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
-public class RandomVideo extends AppCompatActivity {
+public class EndActivity extends AppCompatActivity {
 
     private View mDecorView;
-    private VideoView mVV;
 
-    private File[] mFile;
+    private final Handler handler = new Handler();
+    private final int mDelay = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_random_video);
+        setContentView(R.layout.activity_end);
 
         mDecorView = getWindow().getDecorView();
 
@@ -36,35 +36,23 @@ public class RandomVideo extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
-        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + getString(R.string.pathVideosRotacion);
-        File f = new File(path);
-        mFile = f.listFiles();
-
-        mVV = (VideoView) findViewById(R.id.videoView);
-        mVV.setVideoURI(Uri.parse(mFile[new Random().nextInt(mFile.length)].getPath()));
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        mVV.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onCompletion(MediaPlayer mp) {
-                findViewById(R.id.progressBar1).setVisibility(View.VISIBLE);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        finish();
-                        Intent intent = new Intent(RandomVideo.this, WelcomeActivity.class);
-                        startActivity(intent);
-                    }
-                }, 10);
-            }
-        });
+            public void run() {
 
-        mVV.start();
+                Log.d("LOL?", "Saving the times this worked.");
+
+                if(WelcomeActivity.didSave)
+                    SaveCounts.saveNumberOfReproductions(EndActivity.this);
+
+                Intent intent = new Intent(EndActivity.this, IntroActivity.class);
+                finish();
+                startActivity(intent);
+
+            }
+        }, mDelay);
     }
+
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {

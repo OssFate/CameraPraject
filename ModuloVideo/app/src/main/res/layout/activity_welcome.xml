@@ -18,20 +18,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/g2">
+        android:id="@+id/g2"
+        android:onClick="startRecording">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="290dp"
+            android:layout_marginTop="124dp"
             app:srcCompat="@drawable/g2_fondo"
             android:id="@+id/g2Fondo" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="322dp"
+            android:layout_marginTop="145dp"
             app:srcCompat="@drawable/g2_texto"
-            android:id="@+id/g2Texto"
-            android:onClick="startRecording" />
+            android:id="@+id/g2Texto" />
 
     </RelativeLayout>
 
@@ -39,82 +43,104 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/g3"
-        android:visibility="invisible">
+        android:visibility="gone">
 
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/g3_fondo"
+            android:layout_marginStart="290dp"
+            android:layout_marginTop="124dp"
             android:id="@+id/g3_fondo" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/g3_texto"
+            android:layout_marginStart="312dp"
+            android:layout_marginTop="210dp"
             android:id="@+id/g3_texto" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/g3_si"
             android:id="@+id/g3Si"
-            android:layout_marginEnd="60dp"
-            android:layout_alignTop="@+id/g3No"
-            android:layout_toStartOf="@+id/g3No"
-            android:onClick="returnInit" />
+            android:layout_marginStart="370dp"
+            android:layout_marginTop="331dp"
+            android:onClick="leaveAppSave" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/g3_no"
             android:id="@+id/g3No"
-            android:layout_marginBottom="155dp"
-            android:layout_marginEnd="345dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:onClick="wannaRecordAgain" />
+            android:layout_marginTop="331dp"
+            android:layout_marginStart="507dp"
+            android:onClick="didntLikeIt" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/g4"
-        android:visibility="invisible">
+        android:visibility="gone">
 
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/g4_fondo"
+            android:layout_marginStart="297dp"
+            android:layout_marginTop="80dp"
             android:id="@+id/g4Fondo" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/g4_texto"
+            android:layout_marginStart="337dp"
+            android:layout_marginTop="124dp"
             android:id="@+id/g4Texto" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/g3_no"
             android:id="@+id/g4No"
-            android:layout_marginStart="55dp"
-            android:layout_alignTop="@+id/g4Si"
-            android:layout_toEndOf="@+id/g4Si"
-            android:onClick="returnInit" />
+            android:layout_marginStart="508dp"
+            android:layout_marginTop="381dp"
+            android:onClick="leaveAppNotSave" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/g3_si"
             android:id="@+id/g4Si"
-            android:layout_marginStart="341dp"
-            android:layout_marginBottom="105dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
+            android:layout_marginStart="372dp"
+            android:layout_marginTop="381dp"
             android:onClick="recordAgain" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recording"
+        android:visibility="gone"
+        android:onClick="fastRecord">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/conteo"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/touchToEnd"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="51dp"
+            android:layout_marginBottom="18dp"/>
+
     </RelativeLayout>
 
 </RelativeLayout>

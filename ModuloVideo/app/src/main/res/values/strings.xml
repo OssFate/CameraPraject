@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ModuloVideo</string>
+
+    <string name="prefKey">com.freakground.oswald.alqueria</string>
+    <string name="numRep">numeroDeReproducciones</string>
+    <string name="archivoRep">/alqueria/reproduccionesVideo.txt</string>
+    <string name="archivoLocal">reproVideo</string>
+
+    <string name="pathVideosRotacion">/alqueria/videos en rotacion</string>
+    <string name="pathVideosGuardar">/alqueria/videos en almacenamiento</string>
 </resources>
