@@ -17,6 +17,8 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="126dp"
+        android:layout_marginTop="219dp"
         app:srcCompat="@drawable/r1_reconocimiento"
         android:id="@+id/r1Reconocimiento" />
 
@@ -24,11 +26,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/r1_iniciar"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="318dp"
+        android:layout_marginBottom="40dp"
         android:id="@+id/imageView4" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="396dp"
+        android:layout_marginTop="43dp"
         app:srcCompat="@drawable/r1_logo"
         android:id="@+id/r1Logo" />
 
@@ -47,6 +54,15 @@
         android:layout_centerHorizontal="true"
         android:onClick="changeActivity">
 
+        <Button
+            android:text="Button"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_alignTop="@+id/pulsator"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="invisible"
+            android:id="@+id/button" />
     </pl.bclogic.pulsator4droid.library.PulsatorLayout>
 
 </RelativeLayout>

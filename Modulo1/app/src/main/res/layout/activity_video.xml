@@ -17,25 +17,14 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/barra"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorBarra"
         android:id="@+id/imageBarra" />
 
     <ImageView
-        app:srcCompat="@drawable/pause2"
-        android:id="@+id/imagePause2"
-        android:layout_marginStart="333dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="6dp"
-        android:onClick="playNPause"
-        android:longClickable="true"
-        android:layout_width="@dimen/buttonW"
-        android:layout_height="@dimen/buttonH" />
-
-    <ImageView
-        android:layout_width="@dimen/buttonW"
-        android:layout_height="@dimen/buttonH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:srcCompat="@drawable/play2"
         android:layout_alignTop="@+id/imagePause2"
         android:layout_alignStart="@+id/imagePause2"
@@ -44,13 +33,25 @@
         android:onClick="playNPause" />
 
     <ImageView
-        android:layout_width="@dimen/buttonW"
-        android:layout_height="@dimen/buttonH"
+        app:srcCompat="@drawable/pause2"
+        android:id="@+id/imagePause2"
+        android:layout_marginStart="333dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="7dp"
+        android:onClick="playNPause"
+        android:longClickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:srcCompat="@drawable/reiniciar2"
         android:layout_marginStart="210dp"
         android:layout_alignBottom="@+id/imagePause2"
         android:layout_toEndOf="@+id/imagePause2"
         android:id="@+id/imageRe"
-        android:onClick="resetVideo" />
+        android:onClick="resetModule" />
 
 </RelativeLayout>

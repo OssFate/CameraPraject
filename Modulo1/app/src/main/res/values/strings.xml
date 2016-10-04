@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Modulo Institucional</string>
+
+    <string name="prefKey">com.freakground.oswald.alqueria</string>
+    <string name="numRep">numeroReproducciones</string>
+    <string name="archivoRep">/alqueria/reproduccionesInstitucional.txt</string>
+    <string name="archivoLocal">reproInsti</string>
+
+
+    <string name="videoInstitucional">/alqueria/institucional.mp4</string>
 </resources>

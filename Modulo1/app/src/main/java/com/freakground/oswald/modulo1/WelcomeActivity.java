@@ -37,7 +37,7 @@ public class WelcomeActivity extends AppCompatActivity {
         Intent intent = new Intent(WelcomeActivity.this, VideoActivity.class);
         //startActivity(intent);
         new ActSwitchAnimTool(WelcomeActivity.this).setAnimType(ActSwitchAnimTool.MODE_SPREAD)
-                .target(view)
+                .target(findViewById(R.id.button))
                 .setmColorStart(Color.parseColor("#cc0000"))
                 .setmColorEnd(Color.parseColor("#cc0000"))
                 .startActivity(intent, true)
