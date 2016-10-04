@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">ModuloFoto</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
+
+    <string name="numRep">numeroDeReproducciones</string>
+    <string name="prefKey">com.freakground.oswald.alqueria.foto</string>
+    <string name="archivoRep">/alqueria/reproduccionesFotos.txt</string>
+    <string name="archivoLocal">reproFoto</string>
+    
+    <string name="pathFotos">/alqueria/fotos</string>
+    <string name="pathFrame">/alqueria/frame.png</string>
 </resources>

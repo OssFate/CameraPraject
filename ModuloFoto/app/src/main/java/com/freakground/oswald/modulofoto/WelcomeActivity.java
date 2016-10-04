@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ViewSwitcher;
@@ -15,27 +16,29 @@ import java.io.File;
 
 public class WelcomeActivity extends AppCompatActivity {
 
+    //State
     private View mDecorView;
-    private Handler mHandler;
+    private final Handler mHandler = new Handler();
+    final private int mDelay = 5000; //milliseconds
+    final private int mW = 575;
+    final private int mH = 686;
+
+    //SlideShow
     private ViewSwitcher mSwitcher;
-    private File[] mFile;
-
-    private String mPath;
-
     private ImageView mFirst;
     private ImageView mSecond;
     private BitmapFactory.Options bmOptions;
+    private Bitmap bm1;
+    private Bitmap bm2;
 
-    final private int mDelay = 4000; //milliseconds
-    final private int mW = 586;
-    final private int mH = 713;
+    //File Location
+    private File[] mFile;
+    private String mPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-
-        mPath = Environment.getExternalStorageDirectory().toString() + "/Pictures/Test";
 
         mDecorView = getWindow().getDecorView();
 
@@ -47,6 +50,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
+        mPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + getString(R.string.pathFotos);
         File f = new File(mPath);
         mFile = f.listFiles();
 
@@ -55,13 +59,11 @@ public class WelcomeActivity extends AppCompatActivity {
 
         bmOptions = new BitmapFactory.Options();
 
-        mFirst.setImageBitmap(Bitmap.createScaledBitmap(BitmapFactory.decodeFile(mFile[(int) (Math.random() * mFile.length)].getPath(), bmOptions), mW, mH, true));
-        //((ImageView) findViewById(R.id.secondImage)).setImageBitmap(Bitmap.createScaledBitmap(BitmapFactory.decodeFile(file[1].getPath()), 586, 713, true));
-        //((ImageView) findViewById(R.id.firstImage)).setImageURI( Uri.parse(file[(int) (Math.random() * file.length)].getPath()));
-        //((ImageView) findViewById(R.id.secondImage)).setImageURI(Uri.parse(file[(int) (Math.random() * file.length)].getPath()));
+        bm1 = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(mFile[(int) (Math.random() * mFile.length)].getPath(), bmOptions), mW, mH, true);
+        bm2 = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(mFile[(int) (Math.random() * mFile.length)].getPath(), bmOptions), mW, mH, true);
+        mFirst.setImageBitmap(bm1);
 
         mSwitcher = (ViewSwitcher) findViewById(R.id.switcher);
-        mHandler = new Handler();
     }
 
     @Override
@@ -72,12 +74,14 @@ public class WelcomeActivity extends AppCompatActivity {
             public void run() {
                 //do something
                 if (mSwitcher.getDisplayedChild() == 0) {
-                    //Log.d("HANDLER!", "IM STILL RUNNING 1");
-                    mSecond.setImageBitmap(Bitmap.createScaledBitmap(BitmapFactory.decodeFile(mFile[(int) (Math.random() * mFile.length)].getPath(), bmOptions), mW, mH, true));
+                    bm2 = null;
+                    bm1 = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(mFile[(int) (Math.random() * mFile.length)].getPath(), bmOptions), mW, mH, true);
+                    mSecond.setImageBitmap(bm1);
                     mSwitcher.showNext();
                 } else {
-                    //Log.d("HANDLER!", "IM STILL RUNNING 2");
-                    mFirst.setImageBitmap(Bitmap.createScaledBitmap(BitmapFactory.decodeFile(mFile[(int) (Math.random() * mFile.length)].getPath(), bmOptions), mW, mH, true));
+                    bm1 = null;
+                    bm2 = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(mFile[(int) (Math.random() * mFile.length)].getPath(), bmOptions), mW, mH, true);
+                    mFirst.setImageBitmap(bm2);
                     mSwitcher.showPrevious();
                 }
                 mHandler.postDelayed(this, mDelay);
@@ -86,10 +90,10 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void changeActivity(View view) {
-        System.out.println("LOL");
-        Intent intent = new Intent(WelcomeActivity.this, SaveActivity.class);
-        this.finish();
+        //finish();
+        findViewById(R.id.progressBar1).setVisibility(View.VISIBLE);
         mHandler.removeCallbacksAndMessages(null);
+        Intent intent = new Intent(WelcomeActivity.this, RestActivity.class);
         startActivity(intent);
     }
 

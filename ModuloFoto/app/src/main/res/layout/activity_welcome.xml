@@ -6,6 +6,7 @@
     android:keepScreenOn="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:onClick="changeActivity"
     tools:context="com.freakground.oswald.modulofoto.WelcomeActivity">
 
     <ImageView
@@ -17,32 +18,38 @@
         android:layout_alignParentStart="true" />
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:srcCompat="@drawable/f1reconocimiento"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
+        android:layout_marginStart="499dp"
+        android:layout_marginTop="42dp"
         android:id="@+id/f1Reconocimiento" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/f1toca"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="90dp"
+        android:layout_marginBottom="36dp"
         android:id="@+id/f1Tocar" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/f1sombra"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="42dp"
         android:id="@+id/f1Sombra" />
 
     <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:srcCompat="@drawable/f1frame"
         android:id="@+id/f1Frame"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="44dp"
-        android:layout_width="@dimen/frameW"
-        android:layout_height="@dimen/frameH"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="46dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:visibility="invisible" />
@@ -54,8 +61,8 @@
         android:layout_centerHorizontal="false"
         android:inAnimation="@anim/fade_in"
         android:outAnimation="@anim/fade_out"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="46dp"
         android:layout_alignParentTop="true">
 
         <ImageView
@@ -74,8 +81,19 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="619dp"
+        android:layout_marginTop="255dp"
         app:srcCompat="@drawable/f1comparte"
-        android:id="@+id/f1Comparte"
-        android:onClick="changeActivity" />
+        android:id="@+id/f1Comparte" />
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

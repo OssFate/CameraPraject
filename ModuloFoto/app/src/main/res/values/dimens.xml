@@ -3,6 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="frameW">426dp</dimen>
-    <dimen name="frameH">513dp</dimen>
+    <dimen name="frameW">431dp</dimen>
+    <dimen name="frameH">515dp</dimen>
 </resources>
